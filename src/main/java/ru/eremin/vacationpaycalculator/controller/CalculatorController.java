@@ -24,14 +24,17 @@ public class CalculatorController {
                                     @RequestParam(value = "startDay", required = false)
                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDay) {
 
-        String vacationPayment;
+        String vacationPayment = "Error";
 
-        if (startDay == null){
-            vacationPayment = calculatorService.calculateVacation(averageSalary, numberVacationDays);
-        } else {
-            vacationPayment = calculatorService.calculateVacationWithTheStartDate(averageSalary, numberVacationDays,
-                    startDay);
+        if(averageSalary > 0 && numberVacationDays > 0){
+            if (startDay == null){
+                vacationPayment = calculatorService.calculateVacation(averageSalary, numberVacationDays);
+            } else {
+                vacationPayment = calculatorService.calculateVacationWithTheStartDate(averageSalary, numberVacationDays,
+                        startDay);
+            }
         }
+
 
         return vacationPayment;
     }
